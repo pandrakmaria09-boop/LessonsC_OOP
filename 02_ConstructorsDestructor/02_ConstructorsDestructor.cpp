@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <cstring>
 using namespace std;
 
 struct Coord
@@ -86,6 +88,178 @@ public:
 	}
 	void setSymbol(char symbol) { this->symbol = symbol; }
 };
+//2
+class Student
+{
+	char* name;
+	int age;
+	int* marks;
+	int countMarks;
+	float averageMark;
+	void SetAverageMark()
+	{
+		if (countMarks == 0)
+		{
+			averageMark = 0;
+			return;
+		}
+		double summa = 0;
+		for (int i = 0; i < countMarks; i++)
+		{
+			summa += marks[i];
+		}
+		averageMark = summa / countMarks;
+	}
+public:
+	Student() : Student("no name", 1)//delegating constructor
+	{
+		cout << "Default constructor" << endl;
+	}
+	Student(const char* name, int age)
+	{
+		cout << "Parametrized constructor" << endl;
+		this->name = new char[strlen(name) + 1];
+		int i = 0;
+		while (name[i] != '\0')
+		{
+			this->name[i] = name[i];
+			i++;
+		}
+		this->name[i] = '\0';
+		if (age <= 0)
+			age = 1;
+		this->age = age;
+		marks = nullptr;
+		countMarks = 0;
+		averageMark = 0;
+	}
+	void AddMark(int mark)
+	{
+		if (mark < 1)
+		{
+			cout << "Wrong mark!" << endl;
+			return;
+		}
+		if (mark > 12)
+		{
+			cout << "Wrong mark!" << endl;
+			return;
+		}
+		int* temp = new int[countMarks + 1];
+		for (int i = 0; i < countMarks; i++)
+		{
+			temp[i] = marks[i];
+		}
+		temp[countMarks] = mark;
+		if (marks != nullptr)
+			delete[]marks;
+		marks = temp;
+		countMarks++;
+		SetAverageMark();
+	}
+	void Print()
+	{
+		cout << "Name : " << name << endl;
+		cout << "Age : " << age << endl;
+		cout << "Marks : ";
+		for (int i = 0; i < countMarks; i++)
+		{
+			cout << marks[i] << " ";
+		}
+		cout << "\nCount marks : " << countMarks << endl;
+		cout << "Average Mark : " << averageMark << endl;
+	}
+	void Save()
+	{
+		ofstream fout("student.txt");
+		if (!fout.is_open())
+		{
+			cout << "Can't open file!" << endl;
+			return;
+		}
+		fout << name << endl;
+		fout << age << endl;
+		fout << countMarks << endl;
+		for (int i = 0; i < countMarks; i++)
+		{
+			fout << marks[i] << " ";
+		}
+		fout.close();
+		cout << "Student saved" << endl;
+	}
+	void Load()
+	{
+		ifstream fin("student.txt");
+		if (!fin.is_open())
+		{
+			cout << "File not found!" << endl;
+			return;
+		}
+		char temp[100];
+		fin.getline(temp, 100);
+		setName(temp);
+		fin >> age;
+		if (marks != nullptr)
+			delete[]marks;
+		marks = nullptr;
+		fin >> countMarks;
+		if (countMarks > 0)
+			marks = new int[countMarks];
+		for (int i = 0; i < countMarks; i++)
+		{
+			fin >> marks[i];
+		}
+		SetAverageMark();
+		fin.close();
+		cout << "Student loaded" << endl;
+	}
+	const char* getName() { return name; }
+	int getAge() { return age; }
+	int getCountMarks() { return countMarks; }
+	float getAverageMark() { return averageMark; }
+	int getMark(int index)
+	{
+		if (index < 0)
+		{
+			cout << "Wrong index!" << endl;
+			return 0;
+		}
+		if (index >= countMarks)
+		{
+			cout << "Wrong index!" << endl;
+			return 0;
+		}
+		return marks[index];
+	}
+	void setName(const char* name)
+	{
+		delete[]this->name;
+		this->name = new char[strlen(name) + 1];
+		int i = 0;
+		while (name[i] != '\0')
+		{
+			this->name[i] = name[i];
+			i++;
+		}
+		this->name[i] = '\0';
+	}
+	void setAge(int age)
+	{
+		if (age <= 0)
+		{
+			cout << "Wrong age!" << endl;
+			return;
+		}
+		this->age = age;
+	}
+	~Student()
+	{
+		cout << "Destructor " << name << endl;
+		delete[]name;
+		if (marks != nullptr)
+			delete[]marks;
+	}
+};
 
 int main()
 {
@@ -106,4 +280,26 @@ int main()
 
 	r3.Resize(-10, 0);
 	r3.Move(-10, 0);
+
+	//2
+	Student student;
+	student.Print();
+	student.setName("Anton");
+	student.setAge(17);
+	student.AddMark(8);
+	student.AddMark(10);
+	student.AddMark(12);
+	student.AddMark(15);
+	student.Print();
+	student.Save();
+
+	Student st2("Vasia", 16);
+	st2.AddMark(7);
+	st2.AddMark(9);
+	st2.Print();
+
+	Student st3;
+	st3.Load();
+	st3.Print();
+	cout << "Name : " << st3.getName() << ", Average : " << st3.getAverageMark() << endl;
 }
