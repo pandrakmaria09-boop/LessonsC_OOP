@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13_Double_linked_list", "13
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11_Queue_with_priority", "11_Queue_with_priority\11_Queue_with_priority.vcxproj", "{840A4A07-ECAD-4584-8665-4811921C2358}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14_Inheritance", "14_Inheritance\14_Inheritance.vcxproj", "{81A00583-ADF2-4A09-A7F8-6F42A704E148}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -181,6 +183,14 @@ Global
 		{840A4A07-ECAD-4584-8665-4811921C2358}.Release|x64.Build.0 = Release|x64
 		{840A4A07-ECAD-4584-8665-4811921C2358}.Release|x86.ActiveCfg = Release|Win32
 		{840A4A07-ECAD-4584-8665-4811921C2358}.Release|x86.Build.0 = Release|Win32
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Debug|x64.ActiveCfg = Debug|x64
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Debug|x64.Build.0 = Debug|x64
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Debug|x86.ActiveCfg = Debug|Win32
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Debug|x86.Build.0 = Debug|Win32
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Release|x64.ActiveCfg = Release|x64
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Release|x64.Build.0 = Release|x64
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Release|x86.ActiveCfg = Release|Win32
+		{81A00583-ADF2-4A09-A7F8-6F42A704E148}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
