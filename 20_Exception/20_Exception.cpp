@@ -186,6 +186,7 @@ public:
 		delete cur;
 		size--;
 	}
+
 	int GetElementByPos(int pos)
 	{
 		if (IsEmpty())
